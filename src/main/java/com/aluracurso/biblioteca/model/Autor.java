@@ -10,16 +10,36 @@ public class Autor {
     private Long id;
 
     private String nombre;
-    private String fechaDeNacimeinto;
-    private String fechaDeDefuncion;
+    private Integer fechaDeNacimeinto;
+    private Integer fechaDeDefuncion;
 
     public Autor() {
     }
 
-    public Autor(String nombre, String fechaDeNacimeinto, String fechaDeDefuncion) {
+    public Autor(Long id, String nombre, Integer fechaDeNacimeinto, Integer fechaDeDefuncion) {
+        this.id = id;
         this.nombre = nombre;
         this.fechaDeNacimeinto = fechaDeNacimeinto;
         this.fechaDeDefuncion = fechaDeDefuncion;
+    }
+    public Autor(AutorRecord autorRecord){
+        this.nombre = autorRecord.nombre();
+        this.fechaDeNacimeinto = autorRecord.fechaNacimientpo();
+        this.fechaDeDefuncion = autorRecord.fechaDefuncion();
+    }
+
+    public Autor(String nombre, Integer fechaDeNacimeinto, Integer fechaDeDefuncion) {
+        this.nombre = nombre;
+        this.fechaDeNacimeinto = fechaDeNacimeinto;
+        this.fechaDeDefuncion = fechaDeDefuncion;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -30,28 +50,29 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public String getFechaDeNacimeinto() {
+    public Integer getFechaDeNacimeinto() {
         return fechaDeNacimeinto;
     }
 
-    public void setFechaDeNacimeinto(String fechaDeNacimeinto) {
+    public void setFechaDeNacimeinto(Integer fechaDeNacimeinto) {
         this.fechaDeNacimeinto = fechaDeNacimeinto;
     }
 
-    public String getFechaDeDefuncion() {
+    public Integer getFechaDeDefuncion() {
         return fechaDeDefuncion;
     }
 
-    public void setFechaDeDefuncion(String fechaDeDefuncion) {
+    public void setFechaDeDefuncion(Integer fechaDeDefuncion) {
         this.fechaDeDefuncion = fechaDeDefuncion;
     }
 
     @Override
     public String toString() {
         return "Autor{" +
-                "nombre='" + nombre + '\'' +
-                ", fechaDeNacimeinto='" + fechaDeNacimeinto + '\'' +
-                ", fechaDeDefuncion='" + fechaDeDefuncion + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", fechaDeNacimeinto=" + fechaDeNacimeinto +
+                ", fechaDeDefuncion=" + fechaDeDefuncion +
                 '}';
     }
 }

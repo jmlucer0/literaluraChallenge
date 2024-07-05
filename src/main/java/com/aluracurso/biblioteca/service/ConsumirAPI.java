@@ -8,7 +8,7 @@ import java.net.http.HttpResponse;
 
 public class ConsumirAPI {
 
-    public String obternerJson(String url){
+    public String obtenerJson(String url){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
