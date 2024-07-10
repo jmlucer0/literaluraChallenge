@@ -12,11 +12,14 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Autores")
     @OneToMany(cascade = CascadeType.ALL)
     private List<Autor> autor;
-
+    @Column
     private String titulo;
+    @Column
     private String idioma;
+    @Column
     private Integer cantidadDeDescargas;
 
     public Libro() {

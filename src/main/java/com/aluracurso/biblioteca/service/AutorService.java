@@ -1,22 +1,21 @@
 package com.aluracurso.biblioteca.service;
 
-import com.aluracurso.biblioteca.model.Libro;
-import com.aluracurso.biblioteca.repository.LibroRepository;
+import com.aluracurso.biblioteca.model.Autor;
+import com.aluracurso.biblioteca.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LibroService {
+public class AutorService {
 
     @Autowired
-    private LibroRepository libroRepository;
+    private AutorRepository autorRepository;
 
-    public void guardarLibro(Libro libro){
+    public void guardarAutor(Autor autor){
         try{
-            libroRepository.save(libro);
+            autorRepository.save(autor);
         }catch (NullPointerException e){
             throw new NullPointerException();
         }
     }
-
 }
