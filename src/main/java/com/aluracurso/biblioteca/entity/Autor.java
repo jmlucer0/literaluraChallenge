@@ -1,5 +1,6 @@
-package com.aluracurso.biblioteca.model;
+package com.aluracurso.biblioteca.entity;
 
+import com.aluracurso.biblioteca.model.AutorRecord;
 import jakarta.persistence.*;
 
 @Entity

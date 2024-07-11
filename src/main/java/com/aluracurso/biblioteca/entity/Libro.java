@@ -1,8 +1,10 @@
-package com.aluracurso.biblioteca.model;
+package com.aluracurso.biblioteca.entity;
 
+import com.aluracurso.biblioteca.model.LibroRecord;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "libros")
@@ -13,7 +15,7 @@ public class Libro {
     private Long id;
 
     @Column(name = "Autores")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Autor> autor;
     @Column
     private String titulo;
@@ -31,6 +33,14 @@ public class Libro {
         this.autor = autor;
         this.idioma = idioma;
         this.cantidadDeDescargas = cantidadDeDescargas;
+    }
+
+    public Libro(LibroRecord libroRecord){
+        this.titulo = libroRecord.titulo();
+        this.autor = libroRecord.autores().stream().map(autores -> new Autor(autores.nombre(), autores.fechaNacimientpo(), autores.fechaDefuncion()))
+                .collect(Collectors.toList());
+        this.idioma = libroRecord.idioma().get(0);
+        this.cantidadDeDescargas = libroRecord.cantidadDeDescargas();
     }
 
     public String getTitulo() {

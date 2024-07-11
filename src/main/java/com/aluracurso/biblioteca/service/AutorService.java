@@ -1,9 +1,11 @@
 package com.aluracurso.biblioteca.service;
 
-import com.aluracurso.biblioteca.model.Autor;
+import com.aluracurso.biblioteca.entity.Autor;
 import com.aluracurso.biblioteca.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AutorService {
@@ -11,11 +13,21 @@ public class AutorService {
     @Autowired
     private AutorRepository autorRepository;
 
-    public void guardarAutor(Autor autor){
-        try{
-            autorRepository.save(autor);
-        }catch (NullPointerException e){
-            throw new NullPointerException();
+    public AutorService(AutorRepository autorRepository) {
+        this.autorRepository = autorRepository;
+    }
+
+    public void listarAutores(){
+        List<Autor> listaAutores = autorRepository.findAll();
+        listaAutores.forEach(System.out::println);
+    }
+
+    public void listarAutoresPorFecha(int fecha){
+        List<Autor> listaAutores = autorRepository.listarAutoresPorFecha(fecha);
+        if (listaAutores.isEmpty()){
+            System.out.println("No hay autores en esa fecha");
+        }else {
+            listaAutores.forEach(System.out::println);
         }
     }
 }
