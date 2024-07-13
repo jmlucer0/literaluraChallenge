@@ -26,6 +26,5 @@ public class BibliotecaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Vista vista = new Vista();
 		vista.menuPrincipal(libroRepository, autorRepository);
-
 	}
 }

@@ -7,15 +7,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "libros")
+@Table(name = "libro")
 public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Autores")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "libro_autor",
+            joinColumns = @JoinColumn(name = "libro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id"))
     private List<Autor> autor;
     @Column
     private String titulo;
@@ -78,11 +80,11 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" +
-                "titulo='" + titulo + '\'' +
-                ", autor=" + autor +
-                ", idioma='" + idioma + '\'' +
-                ", cantidadDeDescargas=" + cantidadDeDescargas +
-                '}';
+        return "-------------------\n" +
+                "Libro: \n" +
+                "Titulo='" + titulo + "'\n" +
+                autor + "'\n" +
+                "Idioma='" + idioma + "'\n" +
+                "CantidadDeDescargas= " + cantidadDeDescargas + "\n";
     }
 }

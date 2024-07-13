@@ -3,12 +3,15 @@ package com.aluracurso.biblioteca.entity;
 import com.aluracurso.biblioteca.model.AutorRecord;
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
+
 @Entity
-@Table(name = "autores")
+@Table(name = "autor")
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String nombre;
     private Integer fechaDeNacimeinto;
@@ -69,11 +72,10 @@ public class Autor {
 
     @Override
     public String toString() {
-        return "Autor{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", fechaDeNacimeinto=" + fechaDeNacimeinto +
-                ", fechaDeDefuncion=" + fechaDeDefuncion +
-                '}';
+        return
+                "Autor:\n" +
+                "  Nombre: " + nombre + '\n' +
+                "  Fecha de nacimiento: " + new SimpleDateFormat("dd/MM/yyyy").format(fechaDeNacimeinto) + '\n' +
+                "  Fecha de defunción: " + (fechaDeDefuncion != null ? new SimpleDateFormat("dd/MM/yyyy").format(fechaDeDefuncion) : "Desconocida") + '\n';
     }
 }

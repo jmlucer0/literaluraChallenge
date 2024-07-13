@@ -6,26 +6,36 @@ import com.aluracurso.biblioteca.service.AutorService;
 import com.aluracurso.biblioteca.service.LibroService;
 
 import java.io.UnsupportedEncodingException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Vista {
 
     public int menuPrincipal(LibroRepository libroRepository, AutorRepository autorRepository) {
         Scanner scanner = new Scanner(System.in);
-        LibroService libroService = new LibroService(libroRepository);
+        LibroService libroService = new LibroService(libroRepository, autorRepository);
         AutorService autorService = new AutorService(autorRepository);
         int seleccion = 0;
         do{
-            System.out.println("Menu");
+            System.out.println("Menu Pincipal");
             System.out.println("1 - Buscar Libro.");
             System.out.println("2 - Listar Libros registrados.");
             System.out.println("3 - Listar Autores registrados.");
             System.out.println("4 - Buscar autores vivos hasta la una fecha determinada.");
             System.out.println("5 - Listar Libros por Idioma.");
             System.out.println("6 - Salir.");
-            seleccion = scanner.nextInt();
+            try {
+                seleccion = scanner.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("opcion no valida \n");
+                scanner.nextLine();
+            }catch (Exception e){
+                System.out.println("Ocurrio un error, intente nuevamente \n");
+                scanner.nextLine();
+                e.printStackTrace();
+            }
             menuSwitch(seleccion, libroService, autorService);
-
+            scanner.nextLine();
         }while (seleccion != 6 );
 
 
@@ -59,8 +69,10 @@ public class Vista {
                 idiomaSeleccionado = OTRO;
                 idioma = "Otros Idiomas";
                 break;
+            default:
+                System.out.println("Ingrese una opcion valida");
         }
-        System.out.println("Libros registrados en " + idioma);
+        System.out.println("Libros registrados en " + idioma + ": \n");
         return idiomaSeleccionado;
     }
 
@@ -70,13 +82,12 @@ public class Vista {
             //    1 - Buscar Libro.
             case 1:
                 System.out.println("Ingrese el nombre del Libro");
-                String libroBuscado = scanner.next();
+                String libroBuscado = scanner.nextLine();
                 try {
                     libroService.buscarLibro(libroBuscado);
                 } catch (UnsupportedEncodingException e) {
                     throw new RuntimeException(e);
                 }
-                scanner.close();
                 break;
 //            2 Listar Libros registrados.
             case 2:
@@ -101,8 +112,6 @@ public class Vista {
                 System.out.println("Cerrando Biblioteca...");
                 System.exit(0);
                 break;
-            default:
-
         }
     }
 }
